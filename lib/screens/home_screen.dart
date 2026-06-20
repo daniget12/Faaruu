@@ -84,13 +84,9 @@ class _MezmurListTabState extends State<_MezmurListTab> {
   @override
   void initState() {
     super.initState();
-    // Sort: Oromo first A-Z, then Amharic/Bilingual A-Z
+    // Sort alphabetically by title only (no language grouping)
     _allMezmurs = MezmurData.getMezmurs()
-      ..sort((a, b) {
-        if (a.language == 'Oromo' && b.language != 'Oromo') return -1;
-        if (a.language != 'Oromo' && b.language == 'Oromo') return 1;
-        return a.title.compareTo(b.title);
-      });
+      ..sort((a, b) => a.title.compareTo(b.title));
     _filtered = List.from(_allMezmurs);
     _searchController.addListener(_onSearch);
   }
@@ -159,7 +155,7 @@ class _MezmurListTabState extends State<_MezmurListTab> {
       body: Column(
         children: [
           Container(
-            color: const Color(0xFF6B2737).withOpacity(0.05),
+            color: const Color(0xFF6B2737).withValues(alpha: 0.05),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
@@ -168,8 +164,7 @@ class _MezmurListTabState extends State<_MezmurListTab> {
                 const SizedBox(width: 6),
                 Text(
                   '${_filtered.length} Mezmura',
-                  style:
-                      TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                  style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
                 ),
               ],
             ),
@@ -179,8 +174,8 @@ class _MezmurListTabState extends State<_MezmurListTab> {
                 ? Center(
                     child: Text(
                       'Hin argamne.',
-                      style: TextStyle(
-                          color: Colors.grey.shade500, fontSize: 15),
+                      style:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 15),
                     ),
                   )
                 : ListView.builder(

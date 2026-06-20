@@ -29,3 +29,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  # Add this section
+  assets:
+    - assets/images/logo.png
+    - assets/images/my_photo.png
+    # If you want to add all images in the folder:
+    # - assets/images/

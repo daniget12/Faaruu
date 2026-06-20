@@ -31,22 +31,35 @@ class AboutScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 16),
 
-            // App logo / icon area
+            // App Logo
             Container(
               width: 100,
               height: 100,
               decoration: BoxDecoration(
-                color: const Color(0xFF6B2737),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF6B2737).withOpacity(0.3),
+                    color: const Color(0xFF6B2737).withValues(alpha: 0.3),
                     blurRadius: 20,
                     offset: const Offset(0, 8),
                   ),
                 ],
               ),
-              child: const Icon(Icons.menu_book, color: Colors.white, size: 52),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: const Color(0xFF6B2737),
+                      child: const Icon(Icons.menu_book,
+                          color: Colors.white, size: 52),
+                    );
+                  },
+                ),
+              ),
             ),
 
             const SizedBox(height: 20),
@@ -70,7 +83,7 @@ class AboutScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
               decoration: BoxDecoration(
-                color: const Color(0xFF6B2737).withOpacity(0.1),
+                color: const Color(0xFF6B2737).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: const Text(
@@ -112,13 +125,29 @@ class AboutScreen extends StatelessWidget {
                     CircleAvatar(
                       radius: 32,
                       backgroundColor:
-                          const Color(0xFF6B2737).withOpacity(0.15),
-                      child: const Text(
-                        'DG',
-                        style: TextStyle(
-                          color: Color(0xFF6B2737),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          const Color(0xFF6B2737).withValues(alpha: 0.15),
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/images/my_photo.png',
+                          fit: BoxFit.cover,
+                          width: 64,
+                          height: 64,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: const Color(0xFF6B2737)
+                                  .withValues(alpha: 0.15),
+                              child: const Center(
+                                child: Text(
+                                  'DG',
+                                  style: TextStyle(
+                                    color: Color(0xFF6B2737),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -137,8 +166,7 @@ class AboutScreen extends StatelessWidget {
                         SizedBox(height: 2),
                         Text(
                           'Flutter Developer',
-                          style: TextStyle(
-                              color: Colors.grey, fontSize: 13),
+                          style: TextStyle(color: Colors.grey, fontSize: 13),
                         ),
                       ],
                     ),
@@ -149,6 +177,7 @@ class AboutScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
 
+            // Contact section
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -164,26 +193,96 @@ class AboutScreen extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            _ContactButton(
-              icon: Icons.send,
-              label: 'Telegram',
-              color: const Color(0xFF0088CC),
-              onTap: () => _launch('https://t.me/daniget12'),
+            // Telegram Button
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF0088CC).withValues(alpha: 0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.send, size: 20),
+                label: const Text('Telegram', style: TextStyle(fontSize: 16)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF0088CC),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 0,
+                ),
+                onPressed: () => _launch('https://t.me/daniget12'),
+              ),
             ),
-            const SizedBox(height: 10),
-            _ContactButton(
-              icon: Icons.phone,
-              label: 'Bilbili',
-              color: const Color(0xFF34A853),
-              onTap: () => _launch('tel:+251000000000'),
+
+            const SizedBox(height: 12),
+
+            // Phone Button
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF34A853).withValues(alpha: 0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.phone, size: 20),
+                label: const Text('Bilbili', style: TextStyle(fontSize: 16)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF34A853),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 0,
+                ),
+                onPressed: () => _launch('tel:+251000000000'),
+              ),
             ),
-            const SizedBox(height: 10),
-            _ContactButton(
-              icon: Icons.email,
-              label: 'Imeelii',
-              color: const Color(0xFFEA4335),
-              onTap: () => _launch(
-                  'mailto:danielgetahun1000@gmail.com?subject=Baafata%20Faaruu%20App'),
+
+            const SizedBox(height: 12),
+
+            // Email Button
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFFEA4335).withValues(alpha: 0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.email, size: 20),
+                label: const Text('Imeelii', style: TextStyle(fontSize: 16)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFEA4335),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 0,
+                ),
+                onPressed: () => _launch(
+                    'mailto:danielgetahun1000@gmail.com?subject=Baafata%20Faaruu%20App'),
+              ),
             ),
 
             const SizedBox(height: 40),
@@ -199,40 +298,6 @@ class AboutScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _ContactButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color color;
-  final VoidCallback onTap;
-
-  const _ContactButton({
-    required this.icon,
-    required this.label,
-    required this.color,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton.icon(
-        icon: Icon(icon, size: 20),
-        label: Text(label, style: const TextStyle(fontSize: 15)),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          foregroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          elevation: 0,
-        ),
-        onPressed: onTap,
       ),
     );
   }
